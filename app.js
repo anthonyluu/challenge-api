@@ -2,7 +2,7 @@ var Hapi = require('hapi'),
 	Bell = require('bell');
 
 var server = new Hapi.Server();
-server.connection({ port: 3000 });
+server.connection({ port: 9000 });
 
 
 /* // remove these comments when ready to test with github integration using Bell.
