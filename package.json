@@ -18,6 +18,7 @@
   "homepage": "https://github.com/anthonyluu/challenge-api#readme",
   "dependencies": {
     "bell": "^4.0.1",
-    "hapi": "^8.8.0"
+    "hapi": "^8.8.0",
+    "request": "^2.58.0"
   }
 }
