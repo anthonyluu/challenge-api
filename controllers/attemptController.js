@@ -1,13 +1,14 @@
 
-var Attempt = require('./models/attempt.models');
+var Attempt = require('../models/attempt.models');
 
 exports.createAttempt = function(req,res){
     var attempt = new Attempt();
 
     attempt.gitPullRequestID = req.payload.gitID;
+
     attempt.status = req.payload.status;
     attempt.title = req.payload.title;
-    attempt.challenge =req.payload.challenge; 
+    attempt.challenge =req.payload.challenge;
    	attempt.individual = req.payload.user;
 
 	attempt.save(function(error){
