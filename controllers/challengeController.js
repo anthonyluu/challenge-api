@@ -3,6 +3,7 @@ var Attempts = require('../models/attempt.models')
 
 exports.createChallenge = function(req,res){
     var Challenge = new Challenge();
+
     challenge.gitIssueID = req.payload.gitID;
     challenge.gitIssueURL = req.payload.gitURL;
     challenge.status = "ongoing";
@@ -10,6 +11,7 @@ exports.createChallenge = function(req,res){
     challenge.description = req.payload.description;
     challenge.attempts = []; //have to find how to store the object reference
    	challenge.assigner = req.payload.user;
+    
 	challenge.save(function(err){
         console.log(err);
         // if(err) res.send(err);
@@ -41,15 +43,10 @@ exports.getChallenge = function(request,reply) {
     });
 }
 
-exports.getAllChallenges = function(req, res){
+exports.getAllChallenges = function(request, reply){
     Challenge.find({}, function(err, challenges) {
-        if(err) res.send(err);
-        var challengeMap = {};
-        challenges.forEach(function(challenge) {
-            challengeMap[challenge._id] = challenge;
-        });
-
-        res.json(challengeMap);  
+        console.log(challenges);
+        reply(challenges);  
     });
 }
 
