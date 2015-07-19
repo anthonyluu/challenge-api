@@ -21,6 +21,7 @@
     "braintree": "^1.27.0",
     "hapi": "^8.8.0",
     "mongoose": "^4.0.7",
+    "node-paypal-masspayments": "0.0.5",
     "request": "^2.58.0"
   }
 }
