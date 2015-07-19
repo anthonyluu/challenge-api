@@ -2,15 +2,11 @@ var Hapi = require('hapi'),
     Bell = require('bell'),
     Mongoose = require('mongoose'),
     RequestModule = require('request'),
-    attemptController = require('../controllers/attemptController'),
-    challengeController = require('../controllers/challengeController'),
-    userController = require('../controllers/userController');
+    ChallengeController = require('./controllers/challengeController');
 
-var config = require('./env.json')[process.env.NODE_ENV || 'development'];    
+var config = require('./env.json')['production'];    
 var clientId = "57acad3f5f1aa298c29d";
 var clientSecret = process.env.CLIENT_SECRET;
-
-var ChallengeController = require("./controllers/challengeController.js");
 
 var server = new Hapi.Server();
 server.connection({ port: 9000 });
@@ -106,7 +102,7 @@ server.register(Bell, function (err) {
     server.route({
         method: 'GET',
         path: '/allChallenges',
-        handler: challengeController.getAllChallenges
+        handler: ChallengeController.getAllChallenges
     });
 
     server.start(function (err) {
