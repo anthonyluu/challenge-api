@@ -130,30 +130,6 @@ server.register(Bell, function (err) {
         path: '/users',
         handler: UserController.getAllUsers
     });
-    
-    /**Brain Tree routes **/
-    server.router({
-        method: 'GET',
-        path: '/client_token',
-        handler: function (request, reply) {
-            gateway.clientToken.generate({}, function (err, response) {
-                reply.send(response.clientToken);
-            });
-        }
-    });
-
-    server.router({
-        method: 'POST',
-        path: '/payment-methods', 
-        handler: function (request, reply) {
-            var nonce = request.body.payment_method_nonce;
-            // Use payment method nonce here
-            gateway.transaction.sale({
-                amount: '10.00',
-                paymentMethodNonce: nonceFromTheClient,
-            }, function (err, result) {});
-        }
-    });
 
     server.start(function (err) {
         console.log('Server started at:', server.info.uri);
