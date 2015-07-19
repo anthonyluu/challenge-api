@@ -5,7 +5,8 @@ var Hapi = require('hapi'),
     attemptController = require('../controllers/attemptController'),
     challengeController = require('../controllers/challengeController'),
     userController = require('../controllers/userController');
-    
+
+var config = require('./env.json')[process.env.NODE_ENV || 'development'];    
 var clientId = "57acad3f5f1aa298c29d";
 var clientSecret = process.env.CLIENT_SECRET;
 
@@ -13,6 +14,8 @@ var ChallengeController = require("./controllers/challengeController.js");
 
 var server = new Hapi.Server();
 server.connection({ port: 9000 });
+
+Mongoose.connect(config.MONGO_URI);
 
 
 /* // remove these comments when ready to test with github integration using Bell.
