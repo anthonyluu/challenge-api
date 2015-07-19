@@ -10,7 +10,6 @@ var gateway = braintree.connect({
   publicKey: config.publicKey,
   privateKey: config.privateKey
 });
-console.log(gateway);
 exports.getToken = function (request, reply) {
   gateway.clientToken.generate({}, function (err, response) {
     reply(response.clientToken);
@@ -18,7 +17,7 @@ exports.getToken = function (request, reply) {
 }
 
 exports.sendTransaction =  function (request, reply) {
-	var nonce = request.body.payment_method_nonce;
+	var nonce = request.payload.payment_method_nonce;
 	// Use payment method nonce here
 	gateway.transaction.sale({
   		amount: "10.00",
