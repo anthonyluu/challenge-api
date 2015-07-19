@@ -1,10 +1,10 @@
-var User = require('../models/user.models');
-
+var User = require('./models/user.models');
+var Attempt = require('./models/attempt.models');
 exports.createUser = function(req,res){
     var user = new User();
-    user.githubID = req.query.githubID;
-    user.name = req.query.name;
-    user.email = req.query.email;
+    user.githubID = req.payload.githubID;
+    user.name = req.payload.name;
+    user.email = req.payload.email;
     user.active = true;
     user.save(function(error){
         if(err) {
@@ -15,7 +15,7 @@ exports.createUser = function(req,res){
 }
 
 exports.getUser = function(req, res){
-    User.find({githubID:req.params.id},
+    User.find({githubID:req.query.id},
         function(err, user) {
             if (err){
                 res.send(err);
@@ -43,7 +43,7 @@ exports.getAllUsers = function(req, res){
 }
 
 exports.getUserAttempts = function(req,res){
-    User.find({githubID:req.params.githubID},
+    Attempt.find({individual:req.query.ID},
         function(err, user)  { 
             if (err) {
                 res.send(err);

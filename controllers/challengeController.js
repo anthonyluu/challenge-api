@@ -1,5 +1,6 @@
 
 var Challenge = require('../models/challenge.models');
+var Attempts = require('./models/attempts.models')
 
 exports.createChallenge = function(req,res){
     var Challenge = new Challenge();
@@ -18,16 +19,20 @@ exports.createChallenge = function(req,res){
 }
 
 exports.getAttempts = function(req, res){
-    Challenge.find({gitPullRequestID:req.params.gitID},function(err, challenge) {
+    Challenge.find({gitPullRequestID:req.query.gitID},function(err, challenge) {
         if (err) res.send(err);
-        res.json(challenge);
-        User.find({githubID:req.params.id}, function(err, user)  { if (err) res.send(err); })
-            .populate('attempts')
-            .exec(function(err, user){
-                if(err) res.send(err);
-                if(!user.active) res.send('User Does Not Exist');
-                res.json(user.attempts);
+        //with challenge response
+        if(challenge.attempts){
+            var attemptList = {};
+            challenge.attempts.forEach(function(attemptID){
+                Attempts.findById(attemptID, function(err,attemptObject){
+                    attemptList[attemptID] = attemptObject;
+                });
             });
+            res.json(attemptList);
+        }
+        res.send('No Attempts for Challenge');
+        
     });
 }
 
@@ -46,20 +51,26 @@ exports.getAllChallenges = function(req, res){
             challengeMap[challenge._id] = challenge;
         });
 
-        res.send(challengeMap);  
+        res.json(challengeMap);  
     });
 }
 
 exports.updateChallenge = function(req, res) {
-    User.find({gitPullRequestID:req.params.gitID}, function(err, challenge) {
-        if (err) res.send(err);
+    User.find({gitPullRequestID:req.payload.gitID}, function(err, challenge) {
+        if (err){
+            res.send(err);
+        }
 
         challenge.save(function(err){
-            if (err) res.send(err);
-            res.json('successfully updated');
+            if (err){
+                res.send(err);
+            }
+            res.send('successfully updated');
         });
     });
 }
+
+
 
 exports.deleteChallenge = function(req,res){
     Challenge.findByIdAndRemove(req.params.gitID,
