@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
 	Id: String,
+    githubID: String,
 	name: String,
 	email: String,
 	challenges:[{type:Mongoose.Schema.ObjectId, ref: 'Challenge'}],
