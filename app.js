@@ -2,17 +2,30 @@ var Hapi = require('hapi'),
     Bell = require('bell'),
     Mongoose = require('mongoose'),
     RequestModule = require('request'),
-    ChallengeController = require('./controllers/challengeController');
-    UserController = require('./controllers/userController');
+    ChallengeController = require('./controllers/challengeController'),
+    UserController = require('./controllers/userController'),
+    braintree = require("braintree");
 
-var config = require('./env.json')['production'];    
+
+var config = require('./env.json');
+var brainConfig = config['brainTree']
+
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: brainConfig.merchantId,
+  publicKey: brainConfig.publicKey,
+  privateKey: brainConfig.privateKey
+});
+
+
+var MongoConfig = config['production'];    
 var clientId = "57acad3f5f1aa298c29d";
 var clientSecret = process.env.CLIENT_SECRET;
 
 var server = new Hapi.Server();
 server.connection({ port: 9000 });
 
-Mongoose.connect(config.MONGO_URI);
+Mongoose.connect(MongoConfig.MONGO_URI);
 
 
 /* // remove these comments when ready to test with github integration using Bell.
@@ -118,6 +131,30 @@ server.register(Bell, function (err) {
         handler: UserController.getAllUsers
     });
     
+    /**Brain Tree routes **/
+    server.router({
+        method: 'GET',
+        path: '/client_token',
+        handler: function (req, res) {
+            gateway.clientToken.generate({}, function (err, response) {
+                res.send(response.clientToken);
+            });
+        }
+    });
+
+    server.router({
+        method: 'POST',
+        path: '/payment-methods', 
+        handler: function (req, res) {
+            var nonce = req.body.payment_method_nonce;
+            // Use payment method nonce here
+            gateway.transaction.sale({
+                amount: '10.00',
+                paymentMethodNonce: nonceFromTheClient,
+            }, function (err, result) {});
+        }
+    });
+
     server.start(function (err) {
         console.log('Server started at:', server.info.uri);
     });
