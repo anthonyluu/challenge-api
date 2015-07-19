@@ -11,7 +11,8 @@ var challengeSchema = new mongoose.Schema({
 	attempts: [{type: mongoose.Schema.ObjectId, ref: 'Attempt'}],
 	assigner: {type: mongoose.Schema.ObjectId, ref:'User'},
 	status: String,
-	winningAttempt: {type: mongoose.Schema.ObjectId, ref:'Attempt'},   
+	winningAttempt: {type: mongoose.Schema.ObjectId, ref:'Attempt'},
+	active: Boolean  
 });
 
 module.exports = mongoose.model('Challenge', challengeSchema);

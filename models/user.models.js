@@ -8,7 +8,8 @@ var UserSchema = new mongoose.Schema({
 	name: String,
 	email: String,
 	challenges:[{type:mongoose.Schema.ObjectId, ref: 'Challenge'}],
-    attempts:[{type:mongoose.Schema.ObjectId, ref: 'Attempt'}]
+    attempts:[{type:mongoose.Schema.ObjectId, ref: 'Attempt'}],
+    active: Boolean
 });
 
 module.exports = mongoose.model('User', UserSchema);

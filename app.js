@@ -3,6 +3,7 @@ var Hapi = require('hapi'),
     Mongoose = require('mongoose'),
     RequestModule = require('request'),
     ChallengeController = require('./controllers/challengeController');
+    UserController = require('./controllers/userController');
 
 var config = require('./env.json')['production'];    
 var clientId = "57acad3f5f1aa298c29d";
@@ -105,6 +106,12 @@ server.register(Bell, function (err) {
         handler: ChallengeController.getAllChallenges
     });
 
+    server.route({
+        method: 'GET',
+        path: '/users',
+        handler: UserController.createUser
+    });
+    
     server.start(function (err) {
         console.log('Server started at:', server.info.uri);
     });

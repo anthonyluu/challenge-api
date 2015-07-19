@@ -9,6 +9,7 @@ var attemptSchema = new mongoose.Schema({
 	title: String,
 	challenge: {type: mongoose.Schema.ObjectId, 'ref': 'Challenge'},
 	individual: {type: mongoose.Schema.ObjectId, 'ref':'User'},
+	active: Boolean
 });
 
 module.exports = mongoose.model('Attempt', attemptSchema);
