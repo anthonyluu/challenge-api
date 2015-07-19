@@ -9,7 +9,7 @@ var challengeSchema = new mongoose.Schema({
 	title: String,
 	description: String,
 	attempts: [{type: mongoose.Schema.ObjectId, ref: 'Attempt'}],
-	assigner: {type: mongoose.Schema.ObjectId, ref:'User'},
+	assigner: String,
 	status: String,
 	winningAttempt: {type: mongoose.Schema.ObjectId, ref:'Attempt'},
 	active: Boolean  

@@ -3,16 +3,17 @@ var Challenge = require('../models/challenge.models');
 
 exports.createChallenge = function(req,res){
     var challenge = new Challenge();
-    challenge.gitIssueID = req.body.gitID;
-    challenge.gitIssueURL = req.body.gitURL;
+    challenge.gitIssueID = req.payload.gitID;
+    challenge.gitIssueURL = req.payload.gitURL;
     challenge.status = "ongoing";
-    challenge.title = req.body.title;
-    challenge.description = req.body.description;
+    challenge.title = req.payload.title;
+    challenge.description = req.payload.description;
     challenge.attempts = []; //have to find how to store the object reference
-   	challenge.assigner = req.body.user;
-	challenge.save(function(error){
-        if(err) res.send(error);
-        res.json({message: 'challenge successfully created', data:challenge});
+   	challenge.assigner = req.payload.user;
+	challenge.save(function(err){
+        console.log(err);
+        // if(err) res.send(err);
+        //res.json({message: 'challenge successfully created', data:challenge});
     });
 }
 
