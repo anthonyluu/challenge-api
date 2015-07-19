@@ -7,8 +7,8 @@ var UserSchema = new mongoose.Schema({
     githubID: String,
 	name: String,
 	email: String,
-	challenges:[{type:Mongoose.Schema.ObjectId, ref: 'Challenge'}],
-    attempts:[{type:Mongoose.Schema.ObjectId, ref: 'Attempt'}]
+	challenges:[{type:mongoose.Schema.ObjectId, ref: 'Challenge'}],
+    attempts:[{type:mongoose.Schema.ObjectId, ref: 'Attempt'}]
 });
 
 module.exports = mongoose.model('User', UserSchema);

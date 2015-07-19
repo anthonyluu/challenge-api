@@ -7,8 +7,8 @@ var attemptSchema = new mongoose.Schema({
 	gitPullRequestID: String,
 	status: String,
 	title: String,
-	challenge: {type: Mongoose.Schema.ObjectId, 'ref': 'Challenge'},
-	individual: {type: Mongoose.Schema.ObjectId, 'ref':'User'},
+	challenge: {type: mongoose.Schema.ObjectId, 'ref': 'Challenge'},
+	individual: {type: mongoose.Schema.ObjectId, 'ref':'User'},
 });
 
 module.exports = mongoose.model('Attempt', attemptSchema);
