@@ -4,11 +4,11 @@ var Attempt = require('./models/attempt.models');
 exports.createAttempt = function(req,res){
     var attempt = new Attempt();
 
-    attempt.gitPullRequestID = req.body.gitID;
-    attempt.status = req.body.status;
-    attempt.title = req.body.title;
-    attempt.challenge =req.body.challenge; 
-   	attempt.individual = req.body.user;
+    attempt.gitPullRequestID = req.query.gitID;
+    attempt.status = req.query.status;
+    attempt.title = req.query.title;
+    attempt.challenge =req.query.challenge; 
+   	attempt.individual = req.query.user;
 
 	attempt.save(function(error){
         if(err) {

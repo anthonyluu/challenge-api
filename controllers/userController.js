@@ -2,9 +2,9 @@ var User = require('../models/user.models');
 
 exports.createUser = function(req,res){
     var user = new User();
-    user.githubID = req.body.githubID;
-    user.name = req.body.name;
-    user.email = req.body.email;
+    user.githubID = req.query.githubID;
+    user.name = req.query.name;
+    user.email = req.query.email;
     user.active = true;
     user.save(function(error){
         if(err) {
@@ -38,7 +38,7 @@ exports.getAllUsers = function(req, res){
             userMap[user._id] = user;
         });
 
-        res.send(userMap);  
+        res.json(userMap);  
     });
 }
 
