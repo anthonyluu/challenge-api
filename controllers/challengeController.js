@@ -7,7 +7,6 @@ exports.createchallenge = function(req,res){
     challenge.gitIssueID = req.body.gitID;
     challenge.status = req.body.status;
     challenge.title = req.body.title;
-    challenge.attempts = []; //have to find how to store the object reference
    	challenge.assigner = req.body.user;
 	challenge.save(function(error){
         if(err) res.send(error);
@@ -30,6 +29,17 @@ exports.getAttempts = function(req, res){
     });
 }
 
+exports.getAllChallenges = function(req, res){
+    Challenge.find({}, function(err, challenges) {
+        if(err) res.send(err);
+        var challengeMap = {};
+        challenges.forEach(function(challenge) {
+            challengeMap[challenge._id] = challenge;
+        });
+
+        res.send(challengeMap);  
+    });
+}
 
 exports.updatechallenge = function(req, res){
     User.find({gitPullRequestID:req.params.gitID}, function(err, challenge){
