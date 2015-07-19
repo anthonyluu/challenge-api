@@ -32,7 +32,7 @@ exports.getAttempts = function(req, res){
 }
 
 exports.getChallenge = function(req,res) {
-    Challenge.find({gitPullRequestID:req.params.gitID}, function(err, challenge) {
+    Challenge.find({gitPullRequestID:req.params.issueId}, function(err, challenge) {
         if (err) res.send(err);
         res.json(challenge);
     });

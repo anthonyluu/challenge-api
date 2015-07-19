@@ -108,7 +108,7 @@ server.register(Bell, function (err) {
 
     server.route({
         method: 'GET',
-        path: '/challenge',
+        path: '/challenge/{issueId}',
         handler: ChallengeController.getChallenge
     });
 
