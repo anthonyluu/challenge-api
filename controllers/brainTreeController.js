@@ -18,6 +18,8 @@ exports.getToken = function (request, reply) {
 
 exports.sendTransaction =  function (request, reply) {
 	var nonce = request.payload.payment_method_nonce;
+  console.log("nonce is " + nonce);
+  
 	// Use payment method nonce here
 	gateway.transaction.sale({
   		amount: "10.00",
