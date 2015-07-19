@@ -2,7 +2,7 @@ var Challenge = require('../models/challenge.models');
 var Attempts = require('../models/attempt.models')
 
 exports.createChallenge = function(req,res){
-    var Challenge = new Challenge();
+    var challenge = new Challenge();
 
     challenge.gitIssueID = req.payload.gitID;
     challenge.gitIssueURL = req.payload.gitURL;
