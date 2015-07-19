@@ -109,7 +109,7 @@ server.register(Bell, function (err) {
     server.route({
         method: 'GET',
         path: '/users',
-        handler: UserController.createUser
+        handler: UserController.getAllUsers
     });
     
     server.start(function (err) {

@@ -28,6 +28,20 @@ exports.getUser = function(req, res){
     );
 }
 
+exports.getAllUsers = function(req, res){
+    User.find({}, function(err, users) {
+        if(err){
+            res.send(err);
+        }
+        var userMap = {};
+        users.forEach(function(user) {
+            userMap[user._id] = user;
+        });
+
+        res.send(userMap);  
+    });
+}
+
 exports.getUserAttempts = function(req,res){
     User.find({githubID:req.params.githubID},
         function(err, user)  { 
