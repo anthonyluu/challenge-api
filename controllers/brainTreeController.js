@@ -13,8 +13,7 @@ var gateway = braintree.connect({
 console.log(gateway);
 exports.getToken = function (request, reply) {
   gateway.clientToken.generate({}, function (err, response) {
-  	console.log(res);
-    res.send(response.clientToken);
+    reply(response.clientToken);
   });
 }
 
@@ -26,6 +25,6 @@ exports.sendTransaction =  function (request, reply) {
   		paymentMethodNonce: nonce,
 	}, function (err, result) {
 		console.log("purchase result: " + result.success);
-		res.send();
+		reply();
 	});
 }
