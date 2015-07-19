@@ -1,6 +1,5 @@
-
 var Challenge = require('../models/challenge.models');
-var Attempts = require('./models/attempts.models')
+var Attempts = require('../models/attempt.models')
 
 exports.createChallenge = function(req,res){
     var Challenge = new Challenge();
@@ -19,7 +18,7 @@ exports.createChallenge = function(req,res){
 }
 
 exports.getAttempts = function(req, res){
-    Challenge.find({gitPullRequestID:req.query.gitID},function(err, challenge) {
+    Challenge.findOne({gitPullRequestID:req.query.gitID},function(err, challenge) {
         if (err) res.send(err);
         //with challenge response
         if(challenge.attempts){
@@ -36,10 +35,9 @@ exports.getAttempts = function(req, res){
     });
 }
 
-exports.getChallenge = function(req,res) {
-    Challenge.find({gitPullRequestID:req.params.issueId}, function(err, challenge) {
-        if (err) res.send(err);
-        res.json(challenge);
+exports.getChallenge = function(request,reply) {
+    Challenge.findOne({gitIssueID: request.params.issueId}, function(err, challenge) {
+        reply(challenge);
     });
 }
 

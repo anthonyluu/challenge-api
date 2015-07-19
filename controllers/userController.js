@@ -1,5 +1,5 @@
-var User = require('./models/user.models');
-var Attempt = require('./models/attempt.models');
+var User = require('../models/user.models');
+var Attempt = require('../models/attempt.models');
 exports.createUser = function(req,res){
     var user = new User();
     user.githubID = req.payload.githubID;
