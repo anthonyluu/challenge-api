@@ -135,9 +135,9 @@ server.register(Bell, function (err) {
     server.router({
         method: 'GET',
         path: '/client_token',
-        handler: function (req, res) {
+        handler: function (request, reply) {
             gateway.clientToken.generate({}, function (err, response) {
-                res.send(response.clientToken);
+                reply.send(response.clientToken);
             });
         }
     });
@@ -145,8 +145,8 @@ server.register(Bell, function (err) {
     server.router({
         method: 'POST',
         path: '/payment-methods', 
-        handler: function (req, res) {
-            var nonce = req.body.payment_method_nonce;
+        handler: function (request, reply) {
+            var nonce = request.body.payment_method_nonce;
             // Use payment method nonce here
             gateway.transaction.sale({
                 amount: '10.00',
