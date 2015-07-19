@@ -5,11 +5,13 @@ var mongoose = require('mongoose');
 var challengeSchema = new mongoose.Schema({
 	Id: String,
 	gitIssueID: String,
+	gitIssueURL: String,
 	title: String,
-	attempts: [{type: Mongoose.Schema.ObjectId, ref: 'Attempt'}],
-	assigner: {type: Mongoose.Schema.ObjectId, ref:'User'},
+	description: String,
+	attempts: [{type: mongoose.Schema.ObjectId, ref: 'Attempt'}],
+	assigner: {type: mongoose.Schema.ObjectId, ref:'User'},
 	status: String,
-	winningAttempt: {type: Mongoose.Schema.ObjectId, ref:'Attempt'},   
+	winningAttempt: {type: mongoose.Schema.ObjectId, ref:'Attempt'},   
 });
 
 module.exports = mongoose.model('Challenge', challengeSchema);

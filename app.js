@@ -6,6 +6,8 @@ var Hapi = require('hapi'),
 var clientId = "57acad3f5f1aa298c29d";
 var clientSecret = process.env.CLIENT_SECRET;
 
+var ChallengeController = require("./controllers/challengeController.js");
+
 var server = new Hapi.Server();
 server.connection({ port: 9000 });
 
@@ -86,6 +88,13 @@ server.register(Bell, function (err) {
                     }
                 });
         }
+    });
+
+    /** Challenge controller routes **/
+    server.route({
+        method: 'POST',
+        path: '/challenge/create',
+        handler: ChallengeController.createChallenge
     });
 
     server.start(function (err) {
