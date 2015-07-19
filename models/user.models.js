@@ -7,8 +7,8 @@ var UserSchema = new mongoose.Schema({
     githubID: String,
 	name: String,
 	email: String,
-	challenges:[{type:mongoose.Schema.ObjectId, ref: 'Challenge'}],
-    attempts:[{type:mongoose.Schema.ObjectId, ref: 'Attempt'}],
+	challenges:[String],
+    attempts:[String],
     active: Boolean
 });
 

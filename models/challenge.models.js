@@ -8,10 +8,10 @@ var challengeSchema = new mongoose.Schema({
 	gitIssueURL: String,
 	title: String,
 	description: String,
-	attempts: [{type: mongoose.Schema.ObjectId, ref: 'Attempt'}],
+	attempts: [String],
 	assigner: String,
 	status: String,
-	winningAttempt: {type: mongoose.Schema.ObjectId, ref:'Attempt'},
+	winningAttempt: String,
 	active: Boolean  
 });
 
