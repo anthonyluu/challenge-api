@@ -106,7 +106,7 @@ server.register(Bell, function (err) {
     server.route({
         method: 'GET',
         path: '/allChallenges',
-        handler: challengeController.getAllChallenges(request, reply);
+        handler: challengeController.getAllChallenges
     });
 
     server.start(function (err) {
