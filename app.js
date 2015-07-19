@@ -4,19 +4,11 @@ var Hapi = require('hapi'),
     RequestModule = require('request'),
     ChallengeController = require('./controllers/challengeController'),
     UserController = require('./controllers/userController'),
+    brainTreeController = require('./controllers/brainTreeController')
     braintree = require("braintree");
 
 
 var config = require('./env.json');
-var brainConfig = config['brainTree']
-
-var gateway = braintree.connect({
-  environment: braintree.Environment.Sandbox,
-  merchantId: brainConfig.merchantId,
-  publicKey: brainConfig.publicKey,
-  privateKey: brainConfig.privateKey
-});
-
 
 var MongoConfig = config['production'];    
 var clientId = "57acad3f5f1aa298c29d";
@@ -105,7 +97,17 @@ server.register(Bell, function (err) {
                 });
         }
     });
+    server.route({
+        method: 'GET',
+        path: '/client_token',
+        handler: brainTreeController.getToken
+    });
+    server.route({
+        method: 'POST',
+        path: '/purchases',
+        handler: brainTreeController.sendTransaction
 
+    });
     /** Challenge controller routes **/
     server.route({
         method: 'POST',
