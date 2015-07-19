@@ -19,6 +19,7 @@
   "dependencies": {
     "bell": "^4.0.1",
     "hapi": "^8.8.0",
+    "mongoose": "^4.0.7",
     "request": "^2.58.0"
   }
 }
