@@ -2,7 +2,7 @@
 var Challenge = require('../models/challenge.models');
 
 exports.createChallenge = function(req,res){
-    var challenge = new Challenge();
+    var Challenge = new Challenge();
     challenge.gitIssueID = req.payload.gitID;
     challenge.gitIssueURL = req.payload.gitURL;
     challenge.status = "ongoing";
@@ -31,6 +31,13 @@ exports.getAttempts = function(req, res){
     });
 }
 
+exports.getChallenge = function(req,res) {
+    Challenge.find({gitPullRequestID:req.params.gitID}, function(err, challenge) {
+        if (err) res.send(err);
+        res.json(challenge);
+    });
+}
+
 exports.getAllChallenges = function(req, res){
     Challenge.find({}, function(err, challenges) {
         if(err) res.send(err);
@@ -55,7 +62,7 @@ exports.updateChallenge = function(req, res) {
 }
 
 exports.deleteChallenge = function(req,res){
-    challenge.findByIdAndRemove(req.params.gitID,
+    Challenge.findByIdAndRemove(req.params.gitID,
         function(err){
             if(err) res.send(err);
             res.json({message:'challenge is deleted'});
