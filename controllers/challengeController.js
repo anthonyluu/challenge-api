@@ -30,6 +30,17 @@ exports.getAttempts = function(req, res){
     });
 }
 
+exports.getAllChallenges = function(req, res){
+    Challenge.find({}, function(err, challenges) {
+        if(err) res.send(err);
+        var challengeMap = {};
+        challenges.forEach(function(challenge) {
+            challengeMap[challenge._id] = challenge;
+        });
+
+        res.send(challengeMap);  
+    });
+}
 
 exports.updateChallenge = function(req, res) {
     User.find({gitPullRequestID:req.params.gitID}, function(err, challenge) {
