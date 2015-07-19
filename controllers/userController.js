@@ -18,6 +18,7 @@ exports.createUser = function(req,res){
 exports.getUser = function(req, res){
     User.find({githubID:req.params.id},function(err, user) {
         if (err) res.send(err);
+        if(!user.active) res.send('User Does Not Exist');
         res.json(user);
     });
 }
@@ -28,41 +29,36 @@ exports.getUserAttempts = function(req,res){
     .populate('attempts')
     .exec(function(err, user){
         if(err) res.send(err);
+        if(!user.active) res.send('User Does Not Exist');
         res.json(user.attempts);
     });
 }
 
 exports.getUserChallenges = function(req,res){
-    User.find({githubID:req.params.id},
+    User.find({githubID:req.params.githubID},
         function(err, user)  { if (err) res.send(err);})
     .populate('challenges')
     .exec(function(err, user){
         if(err) res.send(err);
+        if(!user.active) res.send('User Does Not Exist');
         res.json(user.challenges);
     });
 }
 
-exports.getUserChallenges = function(req,res){
-     User.find({githubID:req.params.id},
-        function(err, user)  { if (err) res.send(err);})
-    .populate('attempts')
-    .populate('challenge')
-    .exec(function(err, attempts){
-        if(err) res.send(err);
-        res.json(attempts);
-    });
-}
+/*
 
-exports.updateUser = function(req, res){
-    User.find({Id:req.params.Id}, function(err, user){
+exports.addChallenge = function(req, res){
+    User.find({githubID:req.params.githubID}, function(err, user){
         if (err) res.send(err);
-        /*TODO update fields here*/
+        if(!user.active) res.send('User Does Not Exist');
+        user.challenges
+        
         user.save(function(err){
             if (err) res.send(err);
             res.json(user);
         });
     }
-}
+}*/
 
 exports.deleteUser = function(req,res){
     User.findByIdAndRemove(req.params.id,

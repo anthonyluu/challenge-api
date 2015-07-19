@@ -1,43 +1,42 @@
 
-var User = require('../models/user.models');
+var Attempt = require('../models/attempt.models');
 
-exports.createUser = function(req,res){
-    var user = new User();
-    user.Id = Math.random().toString(36).slice(2);
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.challenges = [];
-    user.attempts =[];
-    
-    user.save(function(error){
+exports.createAttempt = function(req,res){
+    var attempt = new Attempt();
+    attempt.gitPullRequestID = req.body.gitID;
+    attempt.status = req.body.status;
+    attempt.title = req.body.title;
+    attempt.challenge =req.body.challenge; //have to find how to store the object reference
+   	attempt.individual = req.body.user;
+	attempt.save(function(error){
         if(err) res.send(error);
-        res.json({message: 'User successfully created', data:user});
+        res.json({message: 'Attempt successfully created', data:user});
     });
 }
 
 exports.getAttempt = function(req, res){
-    User.find(githubID{:req.params.id},function(err, user) {
+    Attempt.find({gitPullRequestID:req.params.gitID},function(err, attempt) {
         if (err) res.send(err);
-        res.json(user);
+        res.json(attempt);
     });
 }
 
 
 exports.updateAttempt = function(req, res){
-    User.find({Id:req.params.Id}, function(err, user){
+    User.find({gitPullRequestID:req.params.gitID}, function(err, attempt){
         if (err) res.send(err);
-        user.
-        user.save(function(err){
+        
+        attempt.save(function(err){
             if (err) res.send(err);
-            res.json(user);
+            res.json('successfully updated');
         });
     }
 }
 
 exports.deleteAttempt = function(req,res){
-    User.findByIdAndRemove(req.params.id,
+    Attempt.findByIdAndRemove(req.params.gitID,
         function(err){
             if(err) res.send(err);
-            res.json({message:'Attemp is deleted'});
+            res.json({message:'Attempt is deleted'});
         });
 }
