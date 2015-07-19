@@ -7,6 +7,7 @@ var attemptSchema = new mongoose.Schema({
 	gitPullRequestID: String,
 	status: String,
 	title: String,
+	challenge: {type: Mongoose.Schema.ObjectId, 'ref': 'Challenge'},
 	individual: {type: Mongoose.Schema.ObjectId, 'ref':'User'},
 });
 
